@@ -1,0 +1,16 @@
+{
+  "name": "Pole Position",
+  "short_name": "PolePosition",
+  "description": "Real-time F1 dashboard and race tracker",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#1a6df5",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
