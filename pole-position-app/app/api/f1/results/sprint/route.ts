@@ -16,12 +16,12 @@ export async function GET(
 
   const result = await fetchWithFallback({
     primary: async () => {
-      const json = (await jolpica.raceResults(Number(round))) as {
-        MRData: { RaceTable: { Races: Array<{ Results: unknown[] }> } };
+      const json = (await jolpica.sprintResults(Number(round))) as {
+        MRData: { RaceTable: { Races: Array<{ SprintResults: unknown[] }> } };
       };
-      return json.MRData?.RaceTable?.Races?.[0]?.Results ?? [];
+      return json.MRData?.RaceTable?.Races?.[0]?.SprintResults ?? [];
     },
-    cacheKey: `f1:results:${round}`,
+    cacheKey: `f1:sprint:${round}`,
   });
 
   return NextResponse.json(result);

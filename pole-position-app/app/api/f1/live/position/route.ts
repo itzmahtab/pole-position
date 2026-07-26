@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { fetchWithFallback } from "@/lib/api/fetchWithFallback";
 import { openf1 } from "@/lib/api/openf1";
-import type { ApiEnvelope, Driver } from "@/types";
+import type { ApiEnvelope, Position } from "@/types";
 
 export async function GET(
   request: NextRequest
-): Promise<NextResponse<ApiEnvelope<Driver[]>>> {
+): Promise<NextResponse<ApiEnvelope<Position[]>>> {
   const sessionKey = request.nextUrl.searchParams.get("session_key");
   if (!sessionKey) {
     return NextResponse.json(
@@ -14,13 +14,12 @@ export async function GET(
     );
   }
 
-  const result = await fetchWithFallback<Driver[]>({
+  const result = await fetchWithFallback<Position[]>({
     primary: async () => {
-      const data = await openf1.drivers(Number(sessionKey));
-      return data as Driver[];
+      const data = await openf1.position(Number(sessionKey));
+      return data as Position[];
     },
-    cacheKey: `f1:drivers:${sessionKey}`,
-    cacheTtlMs: 300_000,
+    cacheKey: `f1:positions:${sessionKey}`,
   });
 
   return NextResponse.json(result);
