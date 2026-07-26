@@ -237,8 +237,8 @@ export default function DesignSystemPage() {
                   Loading Skeletons
                 </h4>
                 <div className="max-w-md space-y-3">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
+                  <Skeleton className="h-4 w-62.5" />
+                  <Skeleton className="h-4 w-50" />
                   <Skeleton className="h-32 w-full rounded-xl" />
                 </div>
               </div>
