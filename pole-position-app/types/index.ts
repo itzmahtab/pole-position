@@ -20,25 +20,35 @@ export type Session = z.infer<typeof SessionSchema>;
 
 // ─── Meetings / Schedule ───
 
-export const MeetingSchema = z.object({
-  meeting_key: z.number(),
-  meeting_official_name: z.string(),
-  country_code: z.string(),
-  country_key: z.number(),
-  country_name: z.string(),
-  circuit_short_name: z.string(),
+export const SessionSummarySchema = z.object({
+  session_key: z.number(),
+  session_type: z.string(),
   date_start: z.string(),
   date_end: z.string(),
   gmt_offset: z.string(),
-  sessions: z.array(
-    z.object({
-      session_key: z.number(),
-      session_type: z.string(),
-      date_start: z.string(),
-      date_end: z.string(),
-      gmt_offset: z.string(),
-    })
-  ),
+});
+export type SessionSummary = z.infer<typeof SessionSummarySchema>;
+
+export const MeetingSchema = z.object({
+  meeting_key: z.number(),
+  meeting_name: z.string().optional(),
+  meeting_official_name: z.string(),
+  location: z.string().optional(),
+  country_key: z.number().optional(),
+  country_code: z.string(),
+  country_name: z.string(),
+  country_flag: z.string().url().optional(),
+  circuit_key: z.number().optional(),
+  circuit_short_name: z.string(),
+  circuit_type: z.string().optional(),
+  circuit_info_url: z.string().url().optional(),
+  circuit_image: z.string().url().optional(),
+  gmt_offset: z.string(),
+  date_start: z.string(),
+  date_end: z.string(),
+  year: z.number().optional(),
+  is_cancelled: z.boolean().optional(),
+  sessions: z.array(SessionSummarySchema).optional().default([]),
 });
 export type Meeting = z.infer<typeof MeetingSchema>;
 

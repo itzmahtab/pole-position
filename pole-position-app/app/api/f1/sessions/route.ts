@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { fetchWithFallback } from "@/lib/api/fetchWithFallback";
 import { openf1 } from "@/lib/api/openf1";
-import type { ApiEnvelope } from "@/types";
+import type { ApiEnvelope, SessionSummary } from "@/types";
 
 export async function GET(
   request: NextRequest
-): Promise<NextResponse<ApiEnvelope<unknown[]>>> {
+): Promise<NextResponse<ApiEnvelope<SessionSummary[]>>> {
   const meetingKey = request.nextUrl.searchParams.get("meeting_key");
   if (!meetingKey) {
     return NextResponse.json(

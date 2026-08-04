@@ -8,7 +8,7 @@ export function toLocal(utcDate: string, tz: string): Date {
 
 export function formatLocal(utcDate: string, tz: string, fmt: string): string {
   const date = new Date(utcDate);
-  return new Intl.DateTimeFormat(undefined, {
+  return new Intl.DateTimeFormat("en-GB", {
     timeZone: tz,
     ...parseFormatOptions(fmt),
   }).format(date);
@@ -16,22 +16,27 @@ export function formatLocal(utcDate: string, tz: string, fmt: string): string {
 
 function parseFormatOptions(fmt: string): Intl.DateTimeFormatOptions {
   const map: Record<string, Intl.DateTimeFormatOptions> = {
-    "HH:mm": { hour: "2-digit", minute: "2-digit", hour12: false },
+    "HH:mm": { hour: "2-digit", minute: "2-digit", hourCycle: "h23" },
     "DD MMM": { day: "2-digit", month: "short" },
     "DD MMM YYYY": { day: "2-digit", month: "short", year: "numeric" },
     "dddd, DD MMM": { weekday: "long", day: "2-digit", month: "short" },
-    "HH:mm:ss": { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false },
+    "HH:mm:ss": {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23",
+    },
   };
-  return map[fmt] ?? { hour: "2-digit", minute: "2-digit", hour12: false };
+  return map[fmt] ?? { hour: "2-digit", minute: "2-digit", hourCycle: "h23" };
 }
 
 export function formatTime(utcDate: string, tz: string): string {
   const date = new Date(utcDate);
-  return new Intl.DateTimeFormat(undefined, {
+  return new Intl.DateTimeFormat("en-GB", {
     timeZone: tz,
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false,
+    hourCycle: "h23",
   }).format(date);
 }
 
