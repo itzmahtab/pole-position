@@ -1,6 +1,6 @@
 import type { ApiEnvelope } from "@/types";
 
-const TIMEOUT_MS = 3000;
+const TIMEOUT_MS = 5000;
 const MAX_RETRIES = 1;
 const BACKOFF_MS = 250;
 
