@@ -4,6 +4,7 @@ import { WeekendTimeline } from "@/components/sections/weekend-timeline";
 import { Calendar } from "@/components/sections/calendar";
 import { CircuitExplorer } from "@/components/sections/circuit-explorer";
 import { Championship } from "@/components/sections/championship";
+import { LiveEvents } from "@/components/sections/live-events";
 import { Strategy } from "@/components/sections/strategy";
 import { Weather } from "@/components/sections/weather";
 import { Comparison } from "@/components/sections/comparison";
@@ -12,7 +13,6 @@ import { Statistics } from "@/components/sections/statistics";
 import { SeasonTimeline } from "@/components/sections/season-timeline";
 import { History } from "@/components/sections/history";
 import { Newsletter } from "@/components/sections/newsletter";
-import { LiveEvents } from "@/components/sections/live-events";
 import { CommandMenu } from "@/components/search/command-menu";
 import { NoiseOverlay } from "@/components/shared";
 
