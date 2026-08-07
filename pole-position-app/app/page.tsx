@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/sections/hero/hero-section";
 import { WeekendTimeline } from "@/components/sections/weekend-timeline";
 import { Calendar } from "@/components/sections/calendar";
 import { CircuitExplorer } from "@/components/sections/circuit-explorer";
+import { LiveEvents } from "@/components/sections/live-events";
 import { CommandMenu } from "@/components/search/command-menu";
 import { NoiseOverlay } from "@/components/shared";
 
@@ -43,6 +44,7 @@ export default function Home() {
         <WeekendTimeline />
         <Calendar />
         <CircuitExplorer />
+        <LiveEvents />
       </div>
     </main>
   );
