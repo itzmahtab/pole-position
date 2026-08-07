@@ -11,6 +11,7 @@ import { Results } from "@/components/sections/results";
 import { Statistics } from "@/components/sections/statistics";
 import { SeasonTimeline } from "@/components/sections/season-timeline";
 import { History } from "@/components/sections/history";
+import { Newsletter } from "@/components/sections/newsletter";
 import { LiveEvents } from "@/components/sections/live-events";
 import { CommandMenu } from "@/components/search/command-menu";
 import { NoiseOverlay } from "@/components/shared";
@@ -61,6 +62,7 @@ export default function Home() {
         <Statistics />
         <SeasonTimeline />
         <History />
+        <Newsletter />
       </div>
     </main>
   );
