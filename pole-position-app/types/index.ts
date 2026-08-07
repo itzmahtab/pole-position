@@ -26,6 +26,10 @@ export const SessionSummarySchema = z.object({
   date_start: z.string(),
   date_end: z.string(),
   gmt_offset: z.string(),
+  session_name: z.string().optional(),
+  meeting_key: z.number().optional(),
+  meeting_name: z.string().optional(),
+  circuit_short_name: z.string().optional(),
 });
 export type SessionSummary = z.infer<typeof SessionSummarySchema>;
 
@@ -266,8 +270,84 @@ export const LiveStatusSchema = z.object({
 });
 export type LiveStatus = z.infer<typeof LiveStatusSchema>;
 
-// ─── ApiEnvelope (architecture.md §6) ───
+// ─── Jolpica Results (historical + current) ───
 
+export const JolpicaDriverSchema = z.object({
+  driverId: z.string(),
+  permanentNumber: z.string().optional(),
+  code: z.string().optional(),
+  givenName: z.string(),
+  familyName: z.string(),
+  nationality: z.string(),
+});
+export type JolpicaDriver = z.infer<typeof JolpicaDriverSchema>;
+
+export const JolpicaConstructorSchema = z.object({
+  constructorId: z.string(),
+  name: z.string(),
+  nationality: z.string(),
+});
+export type JolpicaConstructor = z.infer<typeof JolpicaConstructorSchema>;
+
+export const RaceResultRawSchema = z.object({
+  number: z.string().optional(),
+  position: z.string(),
+  positionText: z.string(),
+  points: z.string(),
+  Driver: JolpicaDriverSchema,
+  Constructor: JolpicaConstructorSchema,
+  grid: z.string(),
+  laps: z.string(),
+  status: z.string(),
+  Time: z.object({ millis: z.string().optional(), time: z.string() }).optional(),
+  FastestLap: z
+    .object({
+      lap: z.string(),
+      rank: z.string(),
+      Time: z.object({ time: z.string() }),
+    })
+    .optional(),
+});
+export type RaceResultRaw = z.infer<typeof RaceResultRawSchema>;
+
+export const QualifyingResultRawSchema = z.object({
+  number: z.string().optional(),
+  position: z.string(),
+  Driver: JolpicaDriverSchema,
+  Constructor: JolpicaConstructorSchema,
+  Q1: z.string().optional(),
+  Q2: z.string().optional(),
+  Q3: z.string().optional(),
+});
+export type QualifyingResultRaw = z.infer<typeof QualifyingResultRawSchema>;
+
+export const HistoricalRaceSchema = z.object({
+  season: z.string(),
+  round: z.string(),
+  raceName: z.string(),
+  date: z.string(),
+  time: z.string().optional(),
+  Circuit: z.object({
+    circuitId: z.string(),
+    circuitName: z.string(),
+    Location: z.object({
+      locality: z.string(),
+      country: z.string(),
+      lat: z.string(),
+      long: z.string(),
+    }),
+  }),
+  Results: z.array(RaceResultRawSchema).optional().default([]),
+});
+export type HistoricalRace = z.infer<typeof HistoricalRaceSchema>;
+
+export const HistoricalSeasonSchema = z.object({
+  season: z.string(),
+  races: z.array(HistoricalRaceSchema),
+});
+export type HistoricalSeason = z.infer<typeof HistoricalSeasonSchema>;
+
+// ─── ApiEnvelope (architecture.md §6) ───
 export const ApiEnvelopeSchema = <T extends z.ZodType>(dataSchema: T) =>
   z.object({
     data: dataSchema.nullable(),
