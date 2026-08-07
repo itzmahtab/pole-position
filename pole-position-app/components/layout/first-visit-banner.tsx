@@ -5,18 +5,12 @@ import { detectTimezone } from "@/lib/time";
 import { Button } from "@/components/ui/button";
 import { Globe, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function FirstVisitBanner() {
-  const { bannerDismissed, dismissBanner, timezone, setTimezone, firstVisitDone, markFirstVisitDone } =
+  const { bannerDismissed, dismissBanner, setTimezone, firstVisitDone, markFirstVisitDone } =
     usePreferences();
-  const [detected, setDetected] = useState("");
-
-  useEffect(() => {
-    if (!firstVisitDone && !bannerDismissed) {
-      setDetected(detectTimezone());
-    }
-  }, [firstVisitDone, bannerDismissed]);
+  const [detected] = useState(() => detectTimezone());
 
   if (firstVisitDone || bannerDismissed || !detected) return null;
 

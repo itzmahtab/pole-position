@@ -65,7 +65,7 @@ export async function fetchWithFallback<T>(
   options: FetchWithFallbackOptions<T>,
   envelopeMeta?: { source: ApiEnvelope<T>["source"]; fallbackSource?: ApiEnvelope<T>["source"] }
 ): Promise<ApiEnvelope<T>> {
-  const { primary, fallback, cacheKey, cacheTtlMs = 60_000 } = options;
+  const { primary, fallback, cacheKey } = options;
   const source = envelopeMeta?.source ?? "openf1";
   const fallbackSource = envelopeMeta?.fallbackSource ?? source;
 

@@ -12,7 +12,7 @@ export type TrackId =
 // Simplified, recognizable circuit outlines (viewBox 0 0 200 140).
 // Each path is a closed loop ready for GSAP DrawSVG animation.
 
-const TRACK_PATHS: Record<TrackId, string> = {
+export const TRACK_PATHS: Record<TrackId, string> = {
   monaco:
     "M 60 20 C 45 20 40 28 42 38 C 44 48 50 52 46 60 L 36 78 C 32 86 30 96 34 104 C 38 112 50 116 60 112 L 74 106 L 82 114 C 86 120 92 122 98 118 C 104 114 104 106 100 100 L 94 92 C 92 88 92 84 96 82 C 100 80 104 82 106 86 L 112 96 C 116 104 122 110 130 110 C 138 110 142 104 140 96 L 138 82 L 150 72 C 158 66 160 58 156 50 C 152 42 144 40 138 44 L 124 52 L 118 44 C 112 34 100 24 88 22 C 78 20 68 20 60 20 Z",
   silverstone:

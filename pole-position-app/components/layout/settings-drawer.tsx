@@ -1,7 +1,6 @@
 "use client";
 
 import { usePreferences } from "@/store/preferences";
-import { detectTimezone } from "@/lib/time";
 import {
   Sheet,
   SheetContent,
@@ -12,8 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Settings, Globe, Clock, Palette, Eye } from "lucide-react";
-import { useState } from "react";
+import { Settings, Clock, Palette, Eye } from "lucide-react";
 
 const TIMEZONES = [
   "UTC",
