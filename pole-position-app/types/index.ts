@@ -271,14 +271,14 @@ export type LiveStatus = z.infer<typeof LiveStatusSchema>;
 export const ApiEnvelopeSchema = <T extends z.ZodType>(dataSchema: T) =>
   z.object({
     data: dataSchema.nullable(),
-    source: z.enum(["openf1", "jolpica", "cache", "static"]),
+    source: z.enum(["openf1", "jolpica", "openweather", "cache", "static"]),
     stale: z.boolean(),
     fetchedAt: z.string(),
   });
 
 export type ApiEnvelope<T> = {
   data: T | null;
-  source: "openf1" | "jolpica" | "cache" | "static";
+  source: "openf1" | "jolpica" | "openweather" | "cache" | "static";
   stale: boolean;
   fetchedAt: string;
 };
