@@ -14,7 +14,9 @@ export async function GET(): Promise<
       return json.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings ?? [];
     },
     cacheKey: "f1:driver-standings",
-  });
+  },
+    { source: "jolpica" }
+  );
 
   return NextResponse.json(result);
 }

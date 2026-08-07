@@ -14,7 +14,9 @@ export async function GET(): Promise<
       return json.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings ?? [];
     },
     cacheKey: "f1:constructor-standings",
-  });
+  },
+    { source: "jolpica" }
+  );
 
   return NextResponse.json(result);
 }

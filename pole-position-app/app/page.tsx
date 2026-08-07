@@ -3,6 +3,10 @@ import { HeroSection } from "@/components/sections/hero/hero-section";
 import { WeekendTimeline } from "@/components/sections/weekend-timeline";
 import { Calendar } from "@/components/sections/calendar";
 import { CircuitExplorer } from "@/components/sections/circuit-explorer";
+import { Championship } from "@/components/sections/championship";
+import { Strategy } from "@/components/sections/strategy";
+import { Weather } from "@/components/sections/weather";
+import { Comparison } from "@/components/sections/comparison";
 import { LiveEvents } from "@/components/sections/live-events";
 import { CommandMenu } from "@/components/search/command-menu";
 import { NoiseOverlay } from "@/components/shared";
@@ -44,7 +48,11 @@ export default function Home() {
         <WeekendTimeline />
         <Calendar />
         <CircuitExplorer />
+        <Championship />
         <LiveEvents />
+        <Strategy />
+        <Weather />
+        <Comparison />
       </div>
     </main>
   );
