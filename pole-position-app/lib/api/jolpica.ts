@@ -1,3 +1,5 @@
+import type { HistoricalRace } from "@/types";
+
 const BASES = [
   "https://api.jolpi.ca/ergast/f1",
   "https://ergast.com/api/f1",
@@ -31,4 +33,35 @@ export const jolpica = {
     jolpicaFetch(`/current/${round}/qualifying.json`),
   sprintResults: (round: number) =>
     jolpicaFetch(`/current/${round}/sprint.json`),
+  yearSchedule: (year: number) => jolpicaFetch(`/${year}.json`),
+  yearRaceResults: (year: number, round: number) =>
+    jolpicaFetch(`/${year}/${round}/results.json`),
+  yearQualifyingResults: (year: number, round: number) =>
+    jolpicaFetch(`/${year}/${round}/qualifying.json`),
+  yearSprintResults: (year: number, round: number) =>
+    jolpicaFetch(`/${year}/${round}/sprint.json`),
+  // Full season results, fetched in ~6-race pages (offset in result rows).
+  yearSeasonResults: async (year: number): Promise<HistoricalRace[]> => {
+    const seen = new Map<string, HistoricalRace>();
+    let offset = 0;
+    for (let page = 0; page < 8; page++) {
+      const json = (await jolpicaFetch(
+        `/${year}/results.json?limit=100&offset=${offset}`
+      )) as {
+        MRData: { RaceTable: { Races: HistoricalRace[] } };
+      };
+      const races = json.MRData?.RaceTable?.Races ?? [];
+      if (races.length === 0) break;
+      let added = 0;
+      for (const race of races) {
+        if (!seen.has(race.round)) {
+          seen.set(race.round, race);
+          added++;
+        }
+      }
+      offset += 120;
+      if (added === 0) break;
+    }
+    return Array.from(seen.values()).sort((a, b) => Number(a.round) - Number(b.round));
+  },
 };

@@ -7,6 +7,10 @@ import { Championship } from "@/components/sections/championship";
 import { Strategy } from "@/components/sections/strategy";
 import { Weather } from "@/components/sections/weather";
 import { Comparison } from "@/components/sections/comparison";
+import { Results } from "@/components/sections/results";
+import { Statistics } from "@/components/sections/statistics";
+import { SeasonTimeline } from "@/components/sections/season-timeline";
+import { History } from "@/components/sections/history";
 import { LiveEvents } from "@/components/sections/live-events";
 import { CommandMenu } from "@/components/search/command-menu";
 import { NoiseOverlay } from "@/components/shared";
@@ -53,6 +57,10 @@ export default function Home() {
         <Strategy />
         <Weather />
         <Comparison />
+        <Results />
+        <Statistics />
+        <SeasonTimeline />
+        <History />
       </div>
     </main>
   );
