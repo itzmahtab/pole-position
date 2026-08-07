@@ -3,7 +3,7 @@
 import { useCountdown } from "@/hooks";
 import { padZero } from "@/lib/time";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
 
 interface FlipClockProps {
@@ -18,43 +18,24 @@ interface FlipDigitProps {
   reducedMotion: boolean;
 }
 
-function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T | undefined>(undefined);
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-}
-
 function FlipDigit({ value, label, glow, reducedMotion }: FlipDigitProps) {
   const display = padZero(value);
-  const prev = usePrevious(display);
-  const changed = prev !== undefined && prev !== display;
-  const [flipping, setFlipping] = useState(false);
-
-  useEffect(() => {
-    if (changed) {
-      setFlipping(true);
-      const t = setTimeout(() => setFlipping(false), 500);
-      return () => clearTimeout(t);
-    }
-  }, [changed]);
-
   const containerRef = useRef<HTMLDivElement>(null);
+  const prevRef = useRef(display);
 
   useEffect(() => {
-    if (flipping && containerRef.current) {
-      const card = containerRef.current;
-      card.animate(
-        [
-          { transform: "rotateX(0deg)", filter: "brightness(1)" },
-          { transform: "rotateX(-90deg)", filter: "brightness(2.2)" },
-          { transform: "rotateX(-180deg)", filter: "brightness(1)" },
-        ],
-        { duration: 450, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
-      );
-    }
-  }, [flipping]);
+    const card = containerRef.current;
+    if (reducedMotion || !card || prevRef.current === display) return;
+    prevRef.current = display;
+    card.animate(
+      [
+        { transform: "rotateX(0deg)", filter: "brightness(1)" },
+        { transform: "rotateX(-90deg)", filter: "brightness(2.2)" },
+        { transform: "rotateX(-180deg)", filter: "brightness(1)" },
+      ],
+      { duration: 450, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+    );
+  }, [display, reducedMotion]);
 
   if (reducedMotion) {
     return (

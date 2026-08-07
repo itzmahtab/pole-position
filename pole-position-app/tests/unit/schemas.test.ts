@@ -7,7 +7,6 @@ import {
   RaceControlMessageSchema,
   WeatherSchema,
   StintSchema,
-  SessionResultSchema,
   DriverStandingSchema,
   ConstructorStandingSchema,
   RaceSchema,

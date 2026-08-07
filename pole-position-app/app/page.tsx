@@ -1,11 +1,18 @@
 import { Suspense } from "react";
 import { HeroSection } from "@/components/sections/hero/hero-section";
+import { WeekendTimeline } from "@/components/sections/weekend-timeline";
+import { Calendar } from "@/components/sections/calendar";
+import { CircuitExplorer } from "@/components/sections/circuit-explorer";
+import { CommandMenu } from "@/components/search/command-menu";
 import { NoiseOverlay } from "@/components/shared";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-base">
       <NoiseOverlay />
+      <div className="fixed right-4 top-4 z-50">
+        <CommandMenu />
+      </div>
       <Suspense
         fallback={
           <section className="relative min-h-screen overflow-hidden">
@@ -32,6 +39,11 @@ export default function Home() {
       >
         <HeroSection />
       </Suspense>
+      <div className="relative z-10">
+        <WeekendTimeline />
+        <Calendar />
+        <CircuitExplorer />
+      </div>
     </main>
   );
 }

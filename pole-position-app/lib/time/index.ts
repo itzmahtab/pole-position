@@ -1,10 +1,6 @@
-import { format, formatDistanceToNow, isPast, differenceInSeconds } from "date-fns";
+import { formatDistanceToNow, isPast } from "date-fns";
 
 export type F1SessionType = "Practice 1" | "Practice 2" | "Practice 3" | "Qualifying" | "Sprint Qualifying" | "Sprint" | "Race";
-
-export function toLocal(utcDate: string, tz: string): Date {
-  return new Date(utcDate);
-}
 
 export function formatLocal(utcDate: string, tz: string, fmt: string): string {
   const date = new Date(utcDate);

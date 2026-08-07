@@ -1,7 +1,7 @@
 "use client";
 
 import { useRaceWeekend } from "@/hooks/use-race-weekend";
-import type { Meeting, RaceControlMessage, Weather } from "@/types";
+import type { RaceControlMessage, Weather } from "@/types";
 
 interface TrackStatus {
   sessionActive: boolean;
@@ -23,7 +23,6 @@ export function useTrackStatus(
   const sessionActive = state === "live";
 
   const messages = raceControl ?? [];
-  const latest = messages.length > 0 ? messages[messages.length - 1] : null;
 
   return {
     sessionActive,

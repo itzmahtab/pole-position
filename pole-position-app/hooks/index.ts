@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { getCountdownParts, type F1SessionType } from "@/lib/time";
+import { useState, useEffect } from "react";
+import { getCountdownParts } from "@/lib/time";
 
 export function useCountdown(targetDate: string | null) {
   const [parts, setParts] = useState(() =>
@@ -23,15 +23,13 @@ export function useCountdown(targetDate: string | null) {
 }
 
 export function useTimezone() {
-  const [tz, setTz] = useState<string>("UTC");
-
-  useEffect(() => {
+  const [tz, setTz] = useState<string>(() => {
     try {
-      setTz(Intl.DateTimeFormat().resolvedOptions().timeZone);
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
     } catch {
-      setTz("UTC");
+      return "UTC";
     }
-  }, []);
+  });
 
   return { timezone: tz, setTimezone: setTz };
 }
@@ -56,6 +54,17 @@ export function useLocalStorage<T>(key: string, initial: T) {
   }, [key, value]);
 
   return [value, setValue] as const;
+}
+
+export function useNow(intervalMs = 30_000): Date {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), intervalMs);
+    return () => clearInterval(id);
+  }, [intervalMs]);
+
+  return now;
 }
 
 export function useSessionState(
