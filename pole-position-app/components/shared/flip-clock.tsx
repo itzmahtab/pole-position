@@ -1,10 +1,10 @@
 "use client";
 
 import { useCountdown } from "@/hooks";
+import { useMotionEnabled } from "@/hooks/use-motion-enabled";
 import { padZero } from "@/lib/time";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "motion/react";
 
 interface FlipClockProps {
   targetDate: string | null;
@@ -83,7 +83,8 @@ function FlipDigit({ value, label, glow, reducedMotion }: FlipDigitProps) {
 
 export function FlipClock({ targetDate, className }: FlipClockProps) {
   const { days, hours, minutes, seconds, total } = useCountdown(targetDate);
-  const reduced = useReducedMotion();
+  const enabled = useMotionEnabled();
+  const reduced = !enabled;
   const glow = total < 60 && total > 0;
 
   return (

@@ -3,12 +3,14 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "motion/react";
+import { useMotionEnabled } from "@/hooks/use-motion-enabled";
 import { TRACK_IDS, TRACK_PATHS, type TrackId } from "@/components/shared/track-svg";
 import { CIRCUIT_INFO } from "@/lib/constants/circuits";
 import { FlagIcon } from "@/components/shared/flag-icon";
 import { GlassCard } from "@/components/shared/glass-card";
 import { GlowBadge } from "@/components/shared/glow-badge";
+import { TiltCard } from "@/components/shared/tilt-card";
+import { AnimatedCounter } from "@/components/shared/animated-counter";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -47,7 +49,8 @@ function useMedia<T>(query: string, fallback: T, match: T): T {
 
 export function CircuitExplorerClient() {
   const [trackId, setTrackId] = useState<TrackId>("monza");
-  const reduced = useReducedMotion();
+  const enabled = useMotionEnabled();
+  const reduced = !enabled;
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -260,7 +263,7 @@ export function CircuitExplorerClient() {
                     First Grand Prix
                   </div>
                   <div className="font-display mt-1 text-2xl font-bold text-foreground">
-                    {info.firstGp}
+                    <AnimatedCounter value={info.firstGp} />
                   </div>
                 </div>
                 <GlowBadge variant="blue">F1 Circuit</GlowBadge>
@@ -275,16 +278,18 @@ export function CircuitExplorerClient() {
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <GlassCard hover className="p-4">
-      <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-        {label}
-      </div>
-      <div className="font-display mt-1 text-xl font-bold text-foreground">
-        {value}
-      </div>
-      {sub && (
-        <div className="mt-0.5 truncate text-xs text-muted-foreground">{sub}</div>
-      )}
-    </GlassCard>
+    <TiltCard>
+      <GlassCard hover className="p-4">
+        <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          {label}
+        </div>
+        <div className="font-display mt-1 text-xl font-bold text-foreground">
+          {value}
+        </div>
+        {sub && (
+          <div className="mt-0.5 truncate text-xs text-muted-foreground">{sub}</div>
+        )}
+      </GlassCard>
+    </TiltCard>
   );
 }

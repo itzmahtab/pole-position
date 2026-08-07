@@ -205,3 +205,21 @@
   background-size: 200% 100%;
   animation: shimmer 2.4s linear infinite;
 }
+
+/* Motion gate — set by useMotionEnabled() when the OS prefers reduced
+   motion or the user disables "Animations" in the Settings Drawer. */
+.motion-disabled *,
+.motion-disabled *::before,
+.motion-disabled *::after {
+  animation-play-state: paused !important;
+  transition-duration: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-play-state: paused !important;
+    transition-duration: 0s !important;
+  }
+}

@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "motion/react";
+import { useMotionEnabled } from "@/hooks/use-motion-enabled";
 import { useHistoricalSeason } from "@/hooks/use-historical";
+import { AnimatedCounter } from "@/components/shared/animated-counter";
+import { TiltCard } from "@/components/shared/tilt-card";
 import { TEAM_COLORS } from "@/lib/constants";
 import type { HistoricalSeason, RaceResultRaw } from "@/types";
 
@@ -65,57 +67,65 @@ function StoryCard({ story, index }: { story: RaceStory; index: number }) {
       className="relative w-[85vw] shrink-0 snap-center sm:w-80"
       style={{ zIndex: 10 - index }}
     >
-      <div className="glass rounded-2xl p-5 shadow-elevated">
-        <div className="flex items-baseline justify-between gap-2">
-          <span className="font-display text-4xl font-bold text-muted-foreground/40">
-            {story.round}
-          </span>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-            {new Date(story.date).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            })}
-          </span>
-        </div>
-        <h3 className="mt-2 truncate font-display text-lg font-semibold text-foreground">
-          {story.raceName}
-        </h3>
-        <p className="truncate text-xs text-muted-foreground">{story.circuit}</p>
-
-        <div className="mt-4 rounded-lg bg-white/[0.03] p-3">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Winner
-          </div>
-          {story.winner ? (
-            <div className="mt-1 flex items-center gap-2">
-              <span
-                className="h-2.5 w-2.5 shrink-0 rounded-sm"
-                style={{ backgroundColor: color }}
-                aria-hidden
-              />
-              <span className="truncate text-sm font-semibold text-foreground">
-                {story.winner.Driver.givenName} {story.winner.Driver.familyName}
-              </span>
-            </div>
-          ) : (
-            <p className="mt-1 text-sm text-muted-foreground">Not held</p>
-          )}
-        </div>
-
-        <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-          {story.fastestLap ? (
-            <span className="truncate">
-              ⚡ {story.fastestLap.name} · <span className="font-mono">{story.fastestLap.time}</span>
+      <TiltCard className="h-full">
+        <div className="glass rounded-2xl p-5 shadow-elevated">
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="font-display text-4xl font-bold text-muted-foreground/40">
+              {story.round}
             </span>
-          ) : (
-            <span>—</span>
-          )}
-          <span className="shrink-0 tabular-nums">
-            {story.dnfs > 0 ? `${story.dnfs} DNF` : "—"}
-          </span>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              {new Date(story.date).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+          </div>
+          <h3 className="mt-2 truncate font-display text-lg font-semibold text-foreground">
+            {story.raceName}
+          </h3>
+          <p className="truncate text-xs text-muted-foreground">{story.circuit}</p>
+
+          <div className="mt-4 rounded-lg bg-white/[0.03] p-3">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Winner
+            </div>
+            {story.winner ? (
+              <div className="mt-1 flex items-center gap-2">
+                <span
+                  className="h-2.5 w-2.5 shrink-0 rounded-sm"
+                  style={{ backgroundColor: color }}
+                  aria-hidden
+                />
+                <span className="truncate text-sm font-semibold text-foreground">
+                  {story.winner.Driver.givenName} {story.winner.Driver.familyName}
+                </span>
+              </div>
+            ) : (
+              <p className="mt-1 text-sm text-muted-foreground">Not held</p>
+            )}
+          </div>
+
+          <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+            {story.fastestLap ? (
+              <span className="truncate">
+                ⚡ {story.fastestLap.name} · <span className="font-mono">{story.fastestLap.time}</span>
+              </span>
+            ) : (
+              <span>—</span>
+            )}
+            <span className="shrink-0 tabular-nums">
+              {story.dnfs > 0 ? (
+                <>
+                  <AnimatedCounter value={story.dnfs} /> DNF
+                </>
+              ) : (
+                "—"
+              )}
+            </span>
+          </div>
         </div>
-      </div>
+      </TiltCard>
     </article>
   );
 }
@@ -124,7 +134,8 @@ export function SeasonTimelineClient() {
   const currentYear = new Date().getFullYear();
   const years = [currentYear, currentYear - 1, currentYear - 2];
   const [year, setYear] = useState<number>(currentYear);
-  const reduced = useReducedMotion();
+  const enabled = useMotionEnabled();
+  const reduced = !enabled;
   const isDesktop = useIsDesktop();
 
   const { data: season } = useHistoricalSeason(year);

@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { ScrollProvider } from "@/components/providers/scroll-provider";
+import { CursorGlow } from "@/components/shared/cursor-glow";
 import "./globals.css";
 
 const inter = Inter({
@@ -50,9 +52,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <QueryProvider>
-            <TooltipProvider delay={300}>
-              {children}
-            </TooltipProvider>
+            <ScrollProvider>
+              <TooltipProvider delay={300}>
+                {children}
+                <CursorGlow />
+              </TooltipProvider>
+            </ScrollProvider>
           </QueryProvider>
         </ThemeProvider>
       </body>
