@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "motion/react";
+import { useMotionEnabled } from "@/hooks/use-motion-enabled";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,7 +11,7 @@ export function HeroBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const orbARef = useRef<HTMLDivElement>(null);
   const orbBRef = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const enabled = useMotionEnabled();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -19,8 +19,8 @@ export function HeroBackground() {
     const orbB = orbBRef.current;
     if (!container || !orbA || !orbB) return;
 
-    // Disable ALL motion if user prefers reduced motion
-    if (reduced) {
+    // Disable ALL motion if reduced-motion or the in-app toggle is off.
+    if (!enabled) {
       return;
     }
 
@@ -81,7 +81,7 @@ export function HeroBackground() {
       ScrollTrigger.getAll().forEach((st) => st.kill());
       mouseCleanup?.();
     };
-  }, [reduced]);
+  }, [enabled]);
 
   return (
     <div

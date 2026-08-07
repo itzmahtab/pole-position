@@ -10,6 +10,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
+import { MagneticButton } from "@/components/shared/magnetic-button";
+import { scrollToSection } from "@/lib/lenis";
 import { SearchIcon } from "lucide-react";
 import { useSearchIndex } from "@/hooks/use-search-index";
 import { cn } from "@/lib/utils";
@@ -23,14 +25,14 @@ const GROUP_ICON: Record<string, string> = {
   Season: "📅",
 };
 
-function scrollToSection(group: string) {
-  const id =
-    group === "Driver" || group === "Constructor"
-      ? "calendar"
-      : group === "Race" || group === "Country" || group === "Season"
-        ? "calendar"
-        : "circuit-explorer";
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+function targetSection(group: string) {
+  return group === "Driver" ||
+    group === "Constructor" ||
+    group === "Race" ||
+    group === "Country" ||
+    group === "Season"
+    ? "calendar"
+    : "circuit-explorer";
 }
 
 export function CommandMenu() {
@@ -57,19 +59,21 @@ export function CommandMenu() {
 
   return (
     <>
-      <Button
-        variant="outline"
-        size="default"
-        onClick={() => setOpen(true)}
-        className="gap-2 text-muted-foreground"
-        aria-label="Search drivers, circuits, races"
-      >
-        <SearchIcon />
-        <span className="hidden sm:inline">Search F1</span>
-        <kbd className="ml-2 rounded border border-border bg-elevated px-1.5 py-0.5 text-[10px] text-muted-foreground">
-          ⌘K
-        </kbd>
-      </Button>
+      <MagneticButton>
+        <Button
+          variant="outline"
+          size="default"
+          onClick={() => setOpen(true)}
+          className="gap-2 text-muted-foreground"
+          aria-label="Search drivers, circuits, races"
+        >
+          <SearchIcon />
+          <span className="hidden sm:inline">Search F1</span>
+          <kbd className="ml-2 rounded border border-border bg-elevated px-1.5 py-0.5 text-[10px] text-muted-foreground">
+            ⌘K
+          </kbd>
+        </Button>
+      </MagneticButton>
 
       <CommandDialog
         open={open}
@@ -96,7 +100,7 @@ export function CommandMenu() {
                   key={entry.id}
                   value={`${entry.title} ${entry.subtitle} ${entry.keywords}`.toLowerCase()}
                   onSelect={() => {
-                    scrollToSection(entry.group);
+                    scrollToSection(targetSection(entry.group));
                     setOpen(false);
                   }}
                 >
