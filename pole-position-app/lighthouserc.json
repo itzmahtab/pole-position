@@ -1,8 +1,9 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "pnpm start -p 3000",
+      "startServerCommand": "pnpm -C pole-position-app start -p 3000",
       "startServerReadyPattern": "Ready",
+      "startServerTimeout": 60000,
       "url": ["http://localhost:3000"],
       "numberOfRuns": 1
     },

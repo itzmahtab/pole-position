@@ -39,16 +39,16 @@ function FlipDigit({ value, label, glow, reducedMotion }: FlipDigitProps) {
 
   if (reducedMotion) {
     return (
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-1.5 sm:gap-2">
         <div
           className={cn(
-            "font-display flex h-[3.5rem] w-[2.5rem] items-center justify-center rounded-xl border border-border bg-elevated text-[2rem] font-bold text-foreground tabular-nums transition-opacity duration-150 sm:h-20 sm:w-14 sm:text-4xl",
+            "font-display flex h-[2.8rem] w-[2rem] items-center justify-center rounded-lg border border-border bg-elevated text-[1.5rem] font-bold text-foreground tabular-nums transition-opacity duration-150 sm:h-20 sm:w-14 sm:rounded-xl sm:text-4xl",
             glow && "shadow-[var(--glow-red)] border-racing-red/30"
           )}
         >
           <span key={display}>{display}</span>
         </div>
-        <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+        <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground sm:text-[10px] sm:tracking-[0.25em]">
           {label}
         </span>
       </div>
@@ -56,12 +56,12 @@ function FlipDigit({ value, label, glow, reducedMotion }: FlipDigitProps) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-1.5 sm:gap-2">
       <div
         ref={containerRef}
         style={{ perspective: "400px" }}
         className={cn(
-          "font-display relative flex h-[3.5rem] w-[2.5rem] items-center justify-center overflow-hidden rounded-xl border border-border bg-elevated text-[2rem] font-bold text-foreground tabular-nums sm:h-20 sm:w-14 sm:text-4xl",
+          "font-display relative flex h-[2.8rem] w-[2rem] items-center justify-center overflow-hidden rounded-lg border border-border bg-elevated text-[1.5rem] font-bold text-foreground tabular-nums sm:h-20 sm:w-14 sm:rounded-xl sm:text-4xl",
           glow && "border-racing-red/30 shadow-[var(--glow-red)]"
         )}
       >
@@ -74,7 +74,7 @@ function FlipDigit({ value, label, glow, reducedMotion }: FlipDigitProps) {
         {/* hairline split for flip illusion */}
         <span className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-border/50" />
       </div>
-      <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+      <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground sm:text-[10px] sm:tracking-[0.25em]">
         {label}
       </span>
     </div>
@@ -89,7 +89,7 @@ export function FlipClock({ targetDate, className }: FlipClockProps) {
 
   return (
     <div
-      className={cn("flex items-start gap-2 sm:gap-4", className)}
+      className={cn("flex items-start gap-1.5 sm:gap-4", className)}
       role="timer"
       aria-label={`${days} days ${hours} hours ${minutes} minutes ${seconds} seconds until session`}
     >
@@ -129,7 +129,7 @@ function DigitSeparator({ reducedMotion }: { reducedMotion: boolean }) {
     <span
       aria-hidden
       className={cn(
-        "mt-5 font-display text-[1.5rem] font-bold text-muted-foreground sm:mt-6 sm:text-3xl",
+        "mt-3 font-display text-[1.2rem] font-bold text-muted-foreground sm:mt-6 sm:text-3xl",
         reducedMotion && "animate-pulse"
       )}
     >

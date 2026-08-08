@@ -48,7 +48,7 @@ function RaceRow({ r, index }: { r: RaceResultRaw; index: number }) {
     <motion.div
       initial={{ opacity: 0, x: -8 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "200px" }}
       transition={{ duration: 0.3, delay: Math.min(index * 0.02, 0.25) }}
       className={`grid grid-cols-[2.5rem_1fr_auto] items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/5 ${
         dnf ? "opacity-70" : ""
@@ -89,7 +89,7 @@ function QualifyingRow({ q, index }: { q: QualifyingResultRaw; index: number }) 
     <motion.div
       initial={{ opacity: 0, x: -8 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "200px" }}
       transition={{ duration: 0.3, delay: Math.min(index * 0.02, 0.25) }}
       className="grid grid-cols-[2.5rem_1fr_auto] items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/5"
     >
