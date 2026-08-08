@@ -55,13 +55,18 @@ export function CircuitExplorerClient() {
   const pathRef = useRef<SVGPathElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const isMobile = useMedia("(max-width: 767px)", false, true);
+  const [mounted, setMounted] = useState(false);
+
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- valid client-mount detection pattern
+  useEffect(() => setMounted(true), []);
 
   const info = CIRCUIT_INFO[trackId];
   const d = TRACK_PATHS[trackId];
 
   // Position corner markers + DRS zones from the real path geometry.
+  // Computed only after mount so server + client first render match.
   const markers = useMemo(() => {
-    if (reduced || typeof document === "undefined") return [];
+    if (reduced || !mounted || typeof document === "undefined") return [];
     const pts = samplePath(d, 160);
     const corners: Array<Point & { n: number }> = [];
     const step = Math.max(1, Math.floor(160 / info.corners));
@@ -69,10 +74,10 @@ export function CircuitExplorerClient() {
       corners.push({ ...pts[Math.min(i * step, pts.length - 1)], n: i + 1 });
     }
     return corners;
-  }, [d, info.corners, reduced]);
+  }, [d, info.corners, reduced, mounted]);
 
   const drsZones = useMemo(() => {
-    if (reduced || typeof document === "undefined") return [];
+    if (reduced || !mounted || typeof document === "undefined") return [];
     const pts = samplePath(d, 100);
     const zones: Array<{ a: Point; b: Point }> = [];
     const span = Math.floor(100 / (info.drsZones || 1));
@@ -81,7 +86,7 @@ export function CircuitExplorerClient() {
       zones.push({ a: pts[start], b: pts[Math.min(start + 4, pts.length - 1)] });
     }
     return zones;
-  }, [d, info.drsZones, reduced]);
+  }, [d, info.drsZones, reduced, mounted]);
 
   // GSAP path-draw when section scrolls into view.
   useEffect(() => {
