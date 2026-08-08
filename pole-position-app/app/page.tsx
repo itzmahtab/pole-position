@@ -16,12 +16,38 @@ import { Newsletter } from "@/components/sections/newsletter";
 import { CommandMenu } from "@/components/search/command-menu";
 import { StickyNav } from "@/components/layout/sticky-nav";
 import { NoiseOverlay } from "@/components/shared";
+import { SportsEventJsonLd } from "@/components/shared/sports-event-json-ld";
+import { appBaseUrl } from "@/lib/app-url";
 
 export default function Home() {
+  const baseUrl = appBaseUrl();
+
   return (
     <main className="relative min-h-screen bg-base">
       <StickyNav />
       <NoiseOverlay />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Pole Position",
+            url: baseUrl,
+            description:
+              "Live standings, race weekend timeline, session countdowns and the full F1 calendar — instantly converted to your local timezone.",
+            inLanguage: "en",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${baseUrl}?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
+      <Suspense fallback={null}>
+        <SportsEventJsonLd />
+      </Suspense>
       <div className="fixed right-4 top-4 z-50">
         <CommandMenu />
       </div>

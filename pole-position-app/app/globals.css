@@ -199,11 +199,57 @@
   100% { background-position: 200% 0; }
 }
 
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(44, 140, 255, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(44, 140, 255, 0.7), 0 0 40px rgba(44, 140, 255, 0.3); }
+}
+
 @utility animate-pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+@utility animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
 @utility animate-shimmer {
   background: linear-gradient(90deg, transparent, color-mix(in oklab, white 15%, transparent), transparent);
   background-size: 200% 100%;
   animation: shimmer 2.4s linear infinite;
+}
+
+/* Hero animated gradient text */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-gradient-text {
+  background: linear-gradient(
+    270deg,
+    #E10600 0%,
+    #FF8C00 20%,
+    #FFD400 40%,
+    #2C8CFF 60%,
+    #C724F5 80%,
+    #E10600 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+/* Scroll indicator bounce */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.3; }
+}
+
+/* Scroll hint fade */
+.scroll-hint-indicator {
+  animation: scrollHintFade 8s ease-in-out forwards;
+}
+
+@keyframes scrollHintFade {
+  0%, 70% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Motion gate — set by useMotionEnabled() when the OS prefers reduced
