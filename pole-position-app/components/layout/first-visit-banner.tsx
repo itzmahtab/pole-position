@@ -50,6 +50,7 @@ export function FirstVisitBanner() {
               <Button
                 size="sm"
                 variant="ghost"
+                aria-label="Dismiss timezone suggestion"
                 onClick={() => {
                   dismissBanner();
                   markFirstVisitDone();
