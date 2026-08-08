@@ -215,6 +215,23 @@
   transition-duration: 0s !important;
 }
 
+/* Force visibility when motion is disabled — catches framer-motion inline opacity: 0 */
+.motion-disabled [style*="opacity: 0"],
+.motion-disabled [style*="opacity:0"] {
+  opacity: 1 !important;
+}
+
+/* Hero time highlight — RED with pulsing glow */
+.hero-time-highlight {
+  text-shadow: 0 0 12px rgba(225, 6, 0, 0.6), 0 0 24px rgba(225, 6, 0, 0.3);
+  animation: timeHighlightPulse 2s ease-in-out infinite;
+}
+
+@keyframes timeHighlightPulse {
+  0%, 100% { text-shadow: 0 0 12px rgba(225, 6, 0, 0.6), 0 0 24px rgba(225, 6, 0, 0.3); }
+  50% { text-shadow: 0 0 20px rgba(225, 6, 0, 0.9), 0 0 40px rgba(225, 6, 0, 0.5), 0 0 60px rgba(225, 6, 0, 0.2); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

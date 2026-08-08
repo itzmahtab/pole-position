@@ -43,7 +43,7 @@ function RaceCard({
     <motion.div
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "200px" }}
       transition={{ duration: 0.35, delay: (index % 6) * 0.04 }}
       className="relative"
     >

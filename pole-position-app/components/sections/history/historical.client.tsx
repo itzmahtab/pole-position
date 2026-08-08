@@ -127,7 +127,7 @@ export function HistoricalClient() {
                   key={race.round}
                   initial={{ opacity: 0, x: -8 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
+                  viewport={{ once: true, margin: "200px" }}
                   transition={{ duration: 0.3, delay: Math.min(i * 0.02, 0.25) }}
                   className="grid grid-cols-[2.5rem_1fr_auto] items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/5"
                 >
@@ -177,7 +177,7 @@ export function HistoricalClient() {
                   key={r.circuit}
                   initial={{ opacity: 0, x: -8 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
+                  viewport={{ once: true, margin: "200px" }}
                   transition={{ duration: 0.3, delay: Math.min(i * 0.02, 0.3) }}
                   className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/5"
                 >

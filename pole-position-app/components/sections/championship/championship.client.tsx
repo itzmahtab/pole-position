@@ -18,7 +18,7 @@ function DriverRow({ d, index }: { d: DriverStandingRaw; index: number }) {
     <motion.div
       initial={{ opacity: 0, x: -8 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "200px" }}
       transition={{ duration: 0.3, delay: Math.min(index * 0.03, 0.3) }}
       className="grid grid-cols-[2rem_1fr_auto] items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/5"
     >
@@ -56,7 +56,7 @@ function ConstructorRow({ c, index }: { c: ConstructorStandingRaw; index: number
     <motion.div
       initial={{ opacity: 0, x: -8 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "200px" }}
       transition={{ duration: 0.3, delay: Math.min(index * 0.04, 0.4) }}
       className="grid grid-cols-[2rem_1fr_auto] items-center gap-3 rounded-lg px-2 py-2 hover:bg-white/5"
     >
