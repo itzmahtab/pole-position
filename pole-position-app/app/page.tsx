@@ -14,11 +14,14 @@ import { SeasonTimeline } from "@/components/sections/season-timeline";
 import { History } from "@/components/sections/history";
 import { Newsletter } from "@/components/sections/newsletter";
 import { CommandMenu } from "@/components/search/command-menu";
+import { SettingsDrawer } from "@/components/layout/settings-drawer";
+import { StickyNav } from "@/components/layout/sticky-nav";
 import { NoiseOverlay } from "@/components/shared";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-base">
+      <StickyNav />
       <NoiseOverlay />
       <div className="fixed right-4 top-4 z-50">
         <CommandMenu />

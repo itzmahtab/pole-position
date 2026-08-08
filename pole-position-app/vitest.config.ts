@@ -9,6 +9,12 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["lib/**", "hooks/**", "store/**"],
+      thresholds: {
+        statements: 85,
+        branches: 70,
+        functions: 85,
+        lines: 85,
+      },
     },
   },
   resolve: {
