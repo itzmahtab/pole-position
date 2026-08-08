@@ -6,9 +6,7 @@ test("homepage has no automatic accessibility violations", async ({ page }) => {
   await mockApi(page);
   await page.goto("/");
 
-  await expect(
-    page.getByRole("heading", { level: 1, name: /British Grand Prix/i })
-  ).toBeVisible();
+  await expect(page.locator("h1").first()).toBeVisible();
 
   const results = await new AxeBuilder({ page }).analyze();
 

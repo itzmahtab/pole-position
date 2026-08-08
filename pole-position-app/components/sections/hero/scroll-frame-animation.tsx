@@ -265,7 +265,7 @@ export function ScrollFrameAnimation() {
                 fontWeight: 500,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.35)",
+                color: "rgba(255,255,255,0.65)",
                 fontFamily: "Inter, sans-serif",
               }}
             >
