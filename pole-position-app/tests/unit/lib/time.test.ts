@@ -16,20 +16,20 @@ describe("lib/time", () => {
     it("formats a UTC date in a target timezone", () => {
       const iso = "2026-03-15T12:00:00Z";
       const out = formatTime(iso, "Europe/London");
-      expect(out).toMatch(/^\d{2}:\d{2}$/);
+      expect(out).toMatch(/^\d{1,2}:\d{2}\s?[AP]M$/);
     });
 
     it("honours custom format strings", () => {
       const iso = "2026-03-15T12:00:00Z";
       expect(formatLocal(iso, "UTC", "DD MMM YYYY")).toContain("2026");
-      expect(formatLocal(iso, "UTC", "HH:mm:ss")).toMatch(/^\d{2}:\d{2}:\d{2}$/);
+      expect(formatLocal(iso, "UTC", "HH:mm:ss")).toMatch(/^\d{1,2}:\d{2}:\d{2}\s?[ap]m$/i);
       expect(formatLocal(iso, "UTC", "DD MMM")).toMatch(/^\d{2} \w+$/);
       expect(formatLocal(iso, "UTC", "dddd, DD MMM")).toContain("Sunday");
     });
 
     it("falls back to HH:mm for unknown formats", () => {
       const iso = "2026-03-15T12:00:00Z";
-      expect(formatLocal(iso, "UTC", "not-a-format")).toMatch(/^\d{2}:\d{2}$/);
+      expect(formatLocal(iso, "UTC", "not-a-format")).toMatch(/^\d{1,2}:\d{2}\s?[ap]m$/i);
     });
 
     it("formats full dates", () => {
