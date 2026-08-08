@@ -45,7 +45,12 @@ export function SettingsDrawer() {
     <Sheet>
       <SheetTrigger
         render={
-          <Button variant="ghost" size="icon" className="rounded-full" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full"
+            aria-label="Open settings"
+          />
         }
       >
         <Settings className="h-5 w-5" />

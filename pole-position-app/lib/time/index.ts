@@ -12,27 +12,27 @@ export function formatLocal(utcDate: string, tz: string, fmt: string): string {
 
 function parseFormatOptions(fmt: string): Intl.DateTimeFormatOptions {
   const map: Record<string, Intl.DateTimeFormatOptions> = {
-    "HH:mm": { hour: "2-digit", minute: "2-digit", hourCycle: "h23" },
+    "HH:mm": { hour: "numeric", minute: "2-digit", hour12: true },
     "DD MMM": { day: "2-digit", month: "short" },
     "DD MMM YYYY": { day: "2-digit", month: "short", year: "numeric" },
     "dddd, DD MMM": { weekday: "long", day: "2-digit", month: "short" },
     "HH:mm:ss": {
-      hour: "2-digit",
+      hour: "numeric",
       minute: "2-digit",
       second: "2-digit",
-      hourCycle: "h23",
+      hour12: true,
     },
   };
-  return map[fmt] ?? { hour: "2-digit", minute: "2-digit", hourCycle: "h23" };
+  return map[fmt] ?? { hour: "numeric", minute: "2-digit", hour12: true };
 }
 
 export function formatTime(utcDate: string, tz: string): string {
   const date = new Date(utcDate);
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat("en-US", {
     timeZone: tz,
-    hour: "2-digit",
+    hour: "numeric",
     minute: "2-digit",
-    hourCycle: "h23",
+    hour12: true,
   }).format(date);
 }
 

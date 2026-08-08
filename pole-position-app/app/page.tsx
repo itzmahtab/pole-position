@@ -16,6 +16,7 @@ import { Newsletter } from "@/components/sections/newsletter";
 import { CommandMenu } from "@/components/search/command-menu";
 import { SettingsDrawer } from "@/components/layout/settings-drawer";
 import { FirstVisitBanner } from "@/components/layout/first-visit-banner";
+import { StickyNav } from "@/components/layout/sticky-nav";
 import { NoiseOverlay } from "@/components/shared";
 import { appBaseUrl } from "@/lib/app-url";
 import { SportsEventJsonLd } from "@/components/shared/sports-event-json-ld";
@@ -25,6 +26,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-base">
+      <StickyNav />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
